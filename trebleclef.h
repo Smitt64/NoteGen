@@ -1,12 +1,18 @@
 #ifndef TREBLECLEF_H
 #define TREBLECLEF_H
 
-#include <QObject>
+#include <QQuickPaintedItem>
 
-class TrebleClef
+class TrebleClef : public QQuickPaintedItem
 {
+    Q_OBJECT
+    friend class Notation;
 public:
-    TrebleClef();
+    TrebleClef(QQuickItem *parent = Q_NULLPTR);
+    virtual ~TrebleClef();
+
+    virtual void paint(QPainter *painter);
+    virtual QRectF boundingRect() const;
 };
 
 #endif // TREBLECLEF_H

@@ -3,5 +3,7 @@
         <file>main.qml</file>
         <file>img/musical-note.svg</file>
         <file>img/note.png</file>
+        <file>res/Metdemo.ttf</file>
+        <file>NotationView.qml</file>
     </qresource>
 </RCC>
