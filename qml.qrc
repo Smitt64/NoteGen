@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>img/musical-note.svg</file>
+        <file>img/note.png</file>
+    </qresource>
+</RCC>
