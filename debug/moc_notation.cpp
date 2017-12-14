@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Notation_t {
-    QByteArrayData data[17];
-    char stringdata0[137];
+    QByteArrayData data[15];
+    char stringdata0[120];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,23 +37,21 @@ QT_MOC_LITERAL(2, 26, 0), // ""
 QT_MOC_LITERAL(3, 27, 5), // "scale"
 QT_MOC_LITERAL(4, 33, 12), // "setNoteScale"
 QT_MOC_LITERAL(5, 46, 9), // "noteScale"
-QT_MOC_LITERAL(6, 56, 4), // "Clef"
-QT_MOC_LITERAL(7, 61, 11), // "TrebleClef*"
-QT_MOC_LITERAL(8, 73, 9), // "MusicNote"
-QT_MOC_LITERAL(9, 83, 11), // "NoteUnknown"
-QT_MOC_LITERAL(10, 95, 5), // "NoteC"
-QT_MOC_LITERAL(11, 101, 5), // "NoteD"
-QT_MOC_LITERAL(12, 107, 5), // "NoteE"
-QT_MOC_LITERAL(13, 113, 5), // "NoteF"
-QT_MOC_LITERAL(14, 119, 5), // "NoteG"
-QT_MOC_LITERAL(15, 125, 5), // "NoteA"
-QT_MOC_LITERAL(16, 131, 5) // "NoteB"
+QT_MOC_LITERAL(6, 56, 9), // "MusicNote"
+QT_MOC_LITERAL(7, 66, 11), // "NoteUnknown"
+QT_MOC_LITERAL(8, 78, 5), // "NoteC"
+QT_MOC_LITERAL(9, 84, 5), // "NoteD"
+QT_MOC_LITERAL(10, 90, 5), // "NoteE"
+QT_MOC_LITERAL(11, 96, 5), // "NoteF"
+QT_MOC_LITERAL(12, 102, 5), // "NoteG"
+QT_MOC_LITERAL(13, 108, 5), // "NoteA"
+QT_MOC_LITERAL(14, 114, 5) // "NoteB"
 
     },
     "Notation\0noteScaleChanged\0\0scale\0"
-    "setNoteScale\0noteScale\0Clef\0TrebleClef*\0"
-    "MusicNote\0NoteUnknown\0NoteC\0NoteD\0"
-    "NoteE\0NoteF\0NoteG\0NoteA\0NoteB"
+    "setNoteScale\0noteScale\0MusicNote\0"
+    "NoteUnknown\0NoteC\0NoteD\0NoteE\0NoteF\0"
+    "NoteG\0NoteA\0NoteB"
 };
 #undef QT_MOC_LITERAL
 
@@ -64,8 +62,8 @@ static const uint qt_meta_data_Notation[] = {
        0,       // classname
        0,    0, // classinfo
        2,   14, // methods
-       2,   30, // properties
-       1,   38, // enums/sets
+       1,   30, // properties
+       1,   34, // enums/sets
        0,    0, // constructors
        0,       // flags
        1,       // signalCount
@@ -84,24 +82,22 @@ static const uint qt_meta_data_Notation[] = {
 
  // properties: name, type, flags
        5, QMetaType::QReal, 0x00495103,
-       6, 0x80000000 | 7, 0x0009510b,
 
  // properties: notify_signal_id
        0,
-       0,
 
  // enums: name, flags, count, data
-       8, 0x0,    8,   42,
+       6, 0x0,    8,   38,
 
  // enum data: key, value
-       9, uint(Notation::NoteUnknown),
-      10, uint(Notation::NoteC),
-      11, uint(Notation::NoteD),
-      12, uint(Notation::NoteE),
-      13, uint(Notation::NoteF),
-      14, uint(Notation::NoteG),
-      15, uint(Notation::NoteA),
-      16, uint(Notation::NoteB),
+       7, uint(Notation::NoteUnknown),
+       8, uint(Notation::NoteC),
+       9, uint(Notation::NoteD),
+      10, uint(Notation::NoteE),
+      11, uint(Notation::NoteF),
+      12, uint(Notation::NoteG),
+      13, uint(Notation::NoteA),
+      14, uint(Notation::NoteB),
 
        0        // eod
 };
@@ -126,14 +122,7 @@ void Notation::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
                 return;
             }
         }
-    } else if (_c == QMetaObject::RegisterPropertyMetaType) {
-        switch (_id) {
-        default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-        case 1:
-            *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< TrebleClef* >(); break;
-        }
     }
-
 #ifndef QT_NO_PROPERTIES
     else if (_c == QMetaObject::ReadProperty) {
         Notation *_t = static_cast<Notation *>(_o);
@@ -141,7 +130,6 @@ void Notation::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         void *_v = _a[0];
         switch (_id) {
         case 0: *reinterpret_cast< qreal*>(_v) = _t->noteScale(); break;
-        case 1: *reinterpret_cast< TrebleClef**>(_v) = _t->noteClef(); break;
         default: break;
         }
     } else if (_c == QMetaObject::WriteProperty) {
@@ -150,7 +138,6 @@ void Notation::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         void *_v = _a[0];
         switch (_id) {
         case 0: _t->setNoteScale(*reinterpret_cast< qreal*>(_v)); break;
-        case 1: _t->setClef(*reinterpret_cast< TrebleClef**>(_v)); break;
         default: break;
         }
     } else if (_c == QMetaObject::ResetProperty) {
@@ -195,17 +182,17 @@ int Notation::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
    else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::RegisterPropertyMetaType) {
         qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 1;
     } else if (_c == QMetaObject::QueryPropertyDesignable) {
-        _id -= 2;
+        _id -= 1;
     } else if (_c == QMetaObject::QueryPropertyScriptable) {
-        _id -= 2;
+        _id -= 1;
     } else if (_c == QMetaObject::QueryPropertyStored) {
-        _id -= 2;
+        _id -= 1;
     } else if (_c == QMetaObject::QueryPropertyEditable) {
-        _id -= 2;
+        _id -= 1;
     } else if (_c == QMetaObject::QueryPropertyUser) {
-        _id -= 2;
+        _id -= 1;
     }
 #endif // QT_NO_PROPERTIES
     return _id;

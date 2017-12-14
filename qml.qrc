@@ -5,5 +5,17 @@
         <file>img/note.png</file>
         <file>res/Metdemo.ttf</file>
         <file>NotationView.qml</file>
+        <file>img/20x20/back.png</file>
+        <file>img/20x20/drawer.png</file>
+        <file>img/20x20/menu.png</file>
+        <file>img/20x20@2/back.png</file>
+        <file>img/20x20@2/drawer.png</file>
+        <file>img/20x20@2/menu.png</file>
+        <file>img/20x20@3/back.png</file>
+        <file>img/20x20@3/drawer.png</file>
+        <file>img/20x20@3/menu.png</file>
+        <file>img/20x20@4/back.png</file>
+        <file>img/20x20@4/drawer.png</file>
+        <file>img/20x20@4/menu.png</file>
     </qresource>
 </RCC>

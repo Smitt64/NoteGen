@@ -9,7 +9,6 @@ class Notation : public QQuickPaintedItem
 {
     Q_OBJECT
     Q_PROPERTY(qreal noteScale READ noteScale WRITE setNoteScale NOTIFY noteScaleChanged)
-    Q_PROPERTY(TrebleClef *Clef READ noteClef WRITE setClef)
 public:
     enum MusicNote
     {
@@ -26,14 +25,12 @@ public:
     Notation(QQuickItem *parent = Q_NULLPTR);
     virtual ~Notation();
 
+    QFont font() const;
     virtual void paint(QPainter *painter);
 
     qreal noteHeight() const;
     qreal noteDefaultHeight() const;
     qreal noteScale() const;
-
-    TrebleClef *noteClef() const;
-    void setClef(TrebleClef *clef);
 
 public slots:
     void setNoteScale(const qreal &scale);
@@ -42,10 +39,10 @@ signals:
     void noteScaleChanged(const qreal &scale);
 
 private:
-    QRect FindNoteRect(const MusicNote &note);
-    TrebleClef *m_pClef;
+    //QPoint FindNoteY(const MusicNote &note);
     QPixmap m_MusicKey, m_Note;
     qreal m_NoteScale;
+    QFont m_Font;
 };
 
 #endif // NOTATION_H

@@ -14,6 +14,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Notation>("NotationLib", 1, 0, "Notation");
     qmlRegisterType<TrebleClef>("NotationLib", 1, 0, "TrebleClef");
 
+    //qDebug() << QQuickStyle::availableStyles();
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())

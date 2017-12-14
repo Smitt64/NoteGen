@@ -3,15 +3,15 @@
 #include <QFontMetrics>
 #include <QObject>
 
-//#define LINE_SPACE 10
+#define FONT_SCALE 4.0
+#define DEFAULT_NOTE_SIZE 26.0
 
 Notation::Notation(QQuickItem *parent) :
     QQuickPaintedItem(parent),
     m_NoteScale(1.0)
 {
-    m_pClef = Q_NULLPTR;
-    m_MusicKey.load("://img/musical-note.svg");
-    m_Note.load("://img/note.png");
+    m_Font = QFont("MetDemo");
+    m_Font.setPixelSize(noteHeight() * FONT_SCALE);
 }
 
 Notation::~Notation()
@@ -21,7 +21,7 @@ Notation::~Notation()
 
 qreal Notation::noteDefaultHeight() const
 {
-    return (qreal)m_Note.height();
+    return DEFAULT_NOTE_SIZE;
 }
 
 qreal Notation::noteHeight() const
@@ -36,21 +36,24 @@ qreal Notation::noteScale() const
 
 void Notation::setNoteScale(const qreal &scale)
 {
+    TrebleClef *clef = findChild<TrebleClef*>();
     m_NoteScale = scale;
+    //m_Font.setPointSize(noteHeight());
+    m_Font.setPixelSize(noteHeight() * FONT_SCALE /** FONT_SCALE * noteScale()*/);
+    update();
+
+    if (clef)
+        clef->update();
+
     emit noteScaleChanged(m_NoteScale);
 }
 
-TrebleClef *Notation::noteClef() const
+QFont Notation::font() const
 {
-    return m_pClef;
+    return m_Font;
 }
 
-void Notation::setClef(TrebleClef *clef)
-{
-    m_pClef = clef;
-}
-
-QRect Notation::FindNoteRect(const MusicNote &note)
+/*qreal Notation::FindNoteY(const MusicNote &note)
 {
     QRect rc;
     qreal line_space = noteHeight();
@@ -68,11 +71,11 @@ QRect Notation::FindNoteRect(const MusicNote &note)
     rc.setWidth(height);
     rc.setHeight(height);
     return rc;
-}
+}*/
 
 void Notation::paint(QPainter *painter)
 {
-    TrebleClef *clef = findChild<TrebleClef*>();
+    //TrebleClef *clef = findChild<TrebleClef*>();
     qreal line_space = noteHeight();
     QRectF brect = boundingRect();
 
@@ -87,8 +90,6 @@ void Notation::paint(QPainter *painter)
     }
     painter->restore();
 
-    QFont font("MetDemo");
-    font.setPixelSize(line_space * 7 * noteScale());
-    painter->setFont(font);
-    painter->drawText(100, line_space + line_space / 2, "Q");
+    /*painter->setFont(m_Font);
+    painter->drawText(100, line_space + line_space / 2, "Q");*/
 }
