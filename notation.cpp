@@ -12,6 +12,9 @@ Notation::Notation(QQuickItem *parent) :
 {
     m_Font = QFont("MetDemo");
     m_Font.setPixelSize(noteHeight() * FONT_SCALE);
+    //m_FontMetrics = QFontMetrics(m_Font);
+
+    m_ShowLineNumbers = true;
 }
 
 Notation::~Notation()
@@ -34,12 +37,23 @@ qreal Notation::noteScale() const
     return m_NoteScale;
 }
 
+bool Notation::lineNumbers() const
+{
+    return m_ShowLineNumbers;
+}
+
+void Notation::setLineNumbers(bool value)
+{
+    m_ShowLineNumbers = value;
+}
+
 void Notation::setNoteScale(const qreal &scale)
 {
     TrebleClef *clef = findChild<TrebleClef*>();
     m_NoteScale = scale;
     //m_Font.setPointSize(noteHeight());
     m_Font.setPixelSize(noteHeight() * FONT_SCALE /** FONT_SCALE * noteScale()*/);
+    //m_FontMetrics = QFontMetrics(m_Font);
     update();
 
     if (clef)
@@ -83,9 +97,20 @@ void Notation::paint(QPainter *painter)
     qreal y = startY;
 
     painter->save();
-    for (int i = 0; i < 5; i++)
+    for (int i = 5; i > 0; i--)
     {
         painter->drawLine(QPointF(brect.x(), y), QPointF(brect.right(), y));
+
+        if (m_ShowLineNumbers)
+        {
+            QFont tmpF(m_Font.family());
+            tmpF.setPointSize((noteHeight()) / 2);
+            painter->setFont(tmpF);
+
+            QFontMetrics metrics(tmpF);
+            QString number = QString::number(i);
+            painter->drawText(QPointF(brect.x(), y /*+ metrics.boundingRect(number).height() / 4*/), number);
+        }
         y += line_space;
     }
     painter->restore();
