@@ -2,6 +2,7 @@
 #include <QPainter>
 #include <QFontMetrics>
 #include <QObject>
+#include "note.h"
 
 #define FONT_SCALE 4.0
 #define DEFAULT_NOTE_SIZE 26.0
@@ -15,6 +16,7 @@ Notation::Notation(QQuickItem *parent) :
     //m_FontMetrics = QFontMetrics(m_Font);
 
     m_ShowLineNumbers = true;
+    m_LinesPen = QPen(QBrush(Qt::black), 2);
 }
 
 Notation::~Notation()
@@ -47,14 +49,51 @@ void Notation::setLineNumbers(bool value)
     m_ShowLineNumbers = value;
 }
 
+qreal Notation::linePos(const MusicLine &line) const
+{
+    qreal y = 0.0;
+    qreal line_space = noteHeight();
+
+    switch(line)
+    {
+    case LineMain1:
+        y = line_space * 5 + line_space / 2;
+        break;
+    case LineMain2:
+        y = line_space * 4 + line_space / 2;
+        break;
+    case LineMain3:
+        y = line_space * 3 + line_space / 2;
+        break;
+    case LineMain4:
+        y = line_space * 2 + line_space / 2;
+        break;
+    case LineMain5:
+        y = line_space * 1 + line_space / 2;
+        break;
+    case LineBottom1:
+        y = line_space * 6 + line_space / 2;
+        break;
+    case LineBottom2:
+        y = line_space * 7 + line_space / 2;
+        break;
+    case LineBottom3:
+        y = line_space * 8 + line_space / 2;
+        break;
+    }
+
+    return y;
+}
+
 void Notation::setNoteScale(const qreal &scale)
 {
     TrebleClef *clef = findChild<TrebleClef*>();
+    QList<Note*> notes = findChildren<Note*>();
     m_NoteScale = scale;
-    //m_Font.setPointSize(noteHeight());
     m_Font.setPixelSize(noteHeight() * FONT_SCALE /** FONT_SCALE * noteScale()*/);
-    //m_FontMetrics = QFontMetrics(m_Font);
     update();
+    for (QList<Note*>::iterator i = notes.begin(); i != notes.end(); ++i)
+        (*i)->update();
 
     if (clef)
         clef->update();
@@ -67,25 +106,27 @@ QFont Notation::font() const
     return m_Font;
 }
 
-/*qreal Notation::FindNoteY(const MusicNote &note)
+QPen Notation::linePen() const
 {
-    QRect rc;
-    qreal line_space = noteHeight();
-    qreal height = noteHeight();
+    return m_LinesPen;
+}
 
-    qreal y = 0.0;
-    rc.setX(50); // !!!!!!
-    switch(note)
-    {
-    case NoteC:
-        y = line_space * 6; // 1-я добавочная линейка
-        break;
-    }
-    rc.setY(y);
-    rc.setWidth(height);
-    rc.setHeight(height);
-    return rc;
-}*/
+QString Notation::noteName(const qint16 &v) const
+{
+    return Note::noteName((Note::MusicNote)v);
+}
+
+QRectF Notation::boundingRect() const
+{
+    QRectF old = QQuickItem::boundingRect();
+    QRectF rect;
+    rect.setX(old.x());
+    rect.setY(old.y());
+    rect.setWidth(old.width());
+    rect.setHeight(noteHeight() * LineCount);
+
+    return rect;
+}
 
 void Notation::paint(QPainter *painter)
 {
@@ -96,25 +137,13 @@ void Notation::paint(QPainter *painter)
     qreal startY = line_space;
     qreal y = startY;
 
+    painter->fillRect(brect, Qt::white);
     painter->save();
-    for (int i = 5; i > 0; i--)
+    painter->setPen(m_LinesPen);
+    for (int i = LineMain1; i <= LineMain5; i++)
     {
+        y = linePos((MusicLine)i);
         painter->drawLine(QPointF(brect.x(), y), QPointF(brect.right(), y));
-
-        if (m_ShowLineNumbers)
-        {
-            QFont tmpF(m_Font.family());
-            tmpF.setPointSize((noteHeight()) / 2);
-            painter->setFont(tmpF);
-
-            QFontMetrics metrics(tmpF);
-            QString number = QString::number(i);
-            painter->drawText(QPointF(brect.x(), y /*+ metrics.boundingRect(number).height() / 4*/), number);
-        }
-        y += line_space;
     }
     painter->restore();
-
-    /*painter->setFont(m_Font);
-    painter->drawText(100, line_space + line_space / 2, "Q");*/
 }

@@ -16,14 +16,15 @@ TrebleClef::~TrebleClef()
 
 QRectF TrebleClef::boundingRect() const
 {
-    Notation *notation = qobject_cast<Notation*>(parent());
+    /*Notation *notation = qobject_cast<Notation*>(parent());
     qreal line_space = notation->noteHeight();
 
     QFont font = notation->font();
     QFontMetrics fm(font);
 
     QRect rc = fm.boundingRect(":");
-    return QRect(0, 0, rc.width(), rc.height() + line_space * 3);
+    return QRect(0, 0, rc.width(), rc.height() + line_space * 3);*/
+    return QQuickPaintedItem::boundingRect();
 }
 
 void TrebleClef::paint(QPainter *painter)

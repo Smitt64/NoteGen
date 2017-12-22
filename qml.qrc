@@ -1,10 +1,8 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
         <file>img/musical-note.svg</file>
         <file>img/note.png</file>
         <file>res/Metdemo.ttf</file>
-        <file>NotationView.qml</file>
         <file>img/20x20/back.png</file>
         <file>img/20x20/drawer.png</file>
         <file>img/20x20/menu.png</file>
@@ -17,5 +15,12 @@
         <file>img/20x20@4/back.png</file>
         <file>img/20x20@4/drawer.png</file>
         <file>img/20x20@4/menu.png</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>qml/common.js</file>
+        <file>qml/main.qml</file>
+        <file>qml/NotationView.qml</file>
+        <file>qml/NoteButtonStyle.qml</file>
+        <file>qml/NoteComponent.qml</file>
+        <file>qml/SettingsDialog.qml</file>
     </qresource>
 </RCC>

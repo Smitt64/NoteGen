@@ -15,7 +15,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp \
     notation.cpp \
     trebleclef.cpp \
-    note.cpp
+    note.cpp \
+    noteapi.cpp
 
 RESOURCES += qml.qrc
 
@@ -33,7 +34,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     notation.h \
     trebleclef.h \
-    note.h
+    note.h \
+    noteapi.h
 
 DISTFILES += \
     img/music-notes-20838762.jpg \

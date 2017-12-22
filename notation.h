@@ -4,7 +4,9 @@
 #include <QQuickPaintedItem>
 #include <QPixmap>
 #include <QFontMetrics>
+#include <QPen>
 #include "trebleclef.h"
+#include "note.h"
 
 class Notation : public QQuickPaintedItem
 {
@@ -12,18 +14,6 @@ class Notation : public QQuickPaintedItem
     Q_PROPERTY(qreal noteScale READ noteScale WRITE setNoteScale NOTIFY noteScaleChanged)
     Q_PROPERTY(bool LineNumbers READ lineNumbers WRITE setLineNumbers)
 public:
-    enum MusicNote
-    {
-        NoteUnknown,
-        NoteC,       // до
-        NoteD,       // ре
-        NoteE,       // ми
-        NoteF,       // фа
-        NoteG,       // соль
-        NoteA,       // ля
-        NoteB,       // си
-    };
-
     enum MusicLine
     {
         LineNone = -1,
@@ -38,8 +28,9 @@ public:
         LineBottom1,
         LineBottom2,
         LineBottom3,
+
+        LineCount,
     };
-    Q_ENUM(MusicNote)
     Q_ENUM(MusicLine)
     Notation(QQuickItem *parent = Q_NULLPTR);
     virtual ~Notation();
@@ -53,9 +44,14 @@ public:
 
     bool lineNumbers() const;
     void setLineNumbers(bool value);
+    QPen linePen() const;
+
+    virtual QRectF boundingRect() const;
 
 public slots:
     void setNoteScale(const qreal &scale);
+    Q_INVOKABLE qreal linePos(const MusicLine &line) const;
+    Q_INVOKABLE QString noteName(const qint16 &v) const;
 
 signals:
     void noteScaleChanged(const qreal &scale);
@@ -66,6 +62,7 @@ private:
     QPixmap m_MusicKey, m_Note;
     qreal m_NoteScale;
     QFont m_Font;
+    QPen m_LinesPen;
     //QFontMetrics m_FontMetrics;
 };
 
