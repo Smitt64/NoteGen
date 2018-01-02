@@ -1,5 +1,6 @@
 #include "noteapi.h"
 #include "note.h"
+#include "notation.h"
 
 NoteApi::tagNoteData::tagNoteData(qint16 Line, bool isUnderline, QString LangName, QString Name, QString DisplayName)
 {

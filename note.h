@@ -2,13 +2,13 @@
 #define NOTE_H
 
 #include <QQuickPaintedItem>
-#include "notation.h"
 
 class Note : public QQuickPaintedItem
 {
     Q_OBJECT
     friend class Notation;
     Q_PROPERTY(MusicNote note READ note WRITE setNote)
+    Q_PROPERTY(QColor noteColor READ noteColor WRITE setNoteColor)
 public:
     enum MusicNote
     {
@@ -42,6 +42,9 @@ public:
     MusicNote note() const;
     void setNote(const MusicNote &n);
 
+    QColor noteColor() const;
+    void setNoteColor(const QColor &color);
+
     static QString noteName(const MusicNote &v);
 
 public slots:
@@ -52,6 +55,7 @@ public slots:
 private:
     MusicNote m_Note;
     qreal m_X;
+    QColor m_NoteColor;
 };
 
 #endif // NOTE_H

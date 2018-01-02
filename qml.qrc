@@ -22,5 +22,9 @@
         <file>qml/NoteButtonStyle.qml</file>
         <file>qml/NoteComponent.qml</file>
         <file>qml/SettingsDialog.qml</file>
+        <file>qml/NoteDrawer.qml</file>
+        <file>qml/NoteTest.qml</file>
+        <file>qml/NoteButton.qml</file>
+        <file>qml/NoteTest.js</file>
     </qresource>
 </RCC>

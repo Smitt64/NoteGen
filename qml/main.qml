@@ -3,8 +3,6 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.1
 import Qt.labs.settings 1.0
 import QtQuick.Controls.Material 2.3
-import NotationLib 1.0
-import "common.js" as Script
 
 ApplicationWindow {
     id: window
@@ -89,21 +87,15 @@ ApplicationWindow {
         }
     }
 
-    Drawer {
+    NoteDrawer {
         id: drawer
         width: Math.min(window.width, window.height) / 3 * 2
         height: window.height
     }
 
-    NotationView {
+    NoteTest {
         id: view
         anchors.fill: parent
-        noteScale: scaleSlide.value
-        state: ""
-        Component.onCompleted: {
-            generateNote()
-            view.state = "clefenter"
-        }
     }
 
     SettingsDialog {
@@ -112,21 +104,10 @@ ApplicationWindow {
         y: (parent.height - height) / 2
     }
 
-    function generateNote() {
-        for(var i = view.children.length; i > 0 ; i--)
-        {
-            if (Script.qmltypeof(view.children[i-1], "NoteComponent"))
-                view.children[i-1].opacity = 0.0
-        }
-        var notetype = Script.generateRandomNote(settingsDialog.minor, settingsDialog.first, settingsDialog.second)
-        Script.createNoteObjects(view, notetype)
-        titleLabel.text = ApiNote.noteDisplayName(notetype)
-    }
-
     footer: Button {
         id: button
         text: qsTr("Получить ноту")
 
-        onClicked: generateNote()
+        onClicked: view.generateNote()
     }
 }

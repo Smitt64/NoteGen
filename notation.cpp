@@ -13,7 +13,6 @@ Notation::Notation(QQuickItem *parent) :
 {
     m_Font = QFont("MetDemo");
     m_Font.setPixelSize(noteHeight() * FONT_SCALE);
-    //m_FontMetrics = QFontMetrics(m_Font);
 
     m_ShowLineNumbers = true;
     m_LinesPen = QPen(QBrush(Qt::black), 2);
@@ -122,10 +121,26 @@ QRectF Notation::boundingRect() const
     QRectF rect;
     rect.setX(old.x());
     rect.setY(old.y());
-    rect.setWidth(old.width());
+    rect.setWidth(/*old.width()*/2024);
     rect.setHeight(noteHeight() * LineCount);
 
     return rect;
+}
+
+/*int Notation::findFirstNote() const
+{
+    QList<Note*> notes = findChildren<Note*>();
+    if (notes.empty())
+        return Note::NoteUnknown;
+    return notes[0]->note();
+}*/
+
+Note *Notation::findFirstNote() const
+{
+    QList<Note*> notes = findChildren<Note*>();
+    if (notes.empty())
+        return Q_NULLPTR;
+    return notes[0];
 }
 
 void Notation::paint(QPainter *painter)
@@ -143,7 +158,7 @@ void Notation::paint(QPainter *painter)
     for (int i = LineMain1; i <= LineMain5; i++)
     {
         y = linePos((MusicLine)i);
-        painter->drawLine(QPointF(brect.x(), y), QPointF(brect.right(), y));
+        painter->drawLine(QPointF(brect.x(), y), QPointF(brect.width(), y));
     }
     painter->restore();
 }

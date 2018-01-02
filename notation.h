@@ -52,6 +52,8 @@ public slots:
     void setNoteScale(const qreal &scale);
     Q_INVOKABLE qreal linePos(const MusicLine &line) const;
     Q_INVOKABLE QString noteName(const qint16 &v) const;
+    ///*Q_INVOKABLE*/ int findFirstNote() const;
+    Q_INVOKABLE Note *findFirstNote() const;
 
 signals:
     void noteScaleChanged(const qreal &scale);

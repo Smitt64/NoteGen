@@ -9,6 +9,7 @@ Note::Note(QQuickItem *parent) :
 {
     m_Note = NoteUnknown;
     m_X = 50.0;
+    m_NoteColor = QColor(Qt::black);
 }
 
 Note::~Note()
@@ -46,6 +47,17 @@ QString Note::noteName(const MusicNote &v)
     return pNoteApi->noteLangName((qint16)v);
 }
 
+QColor Note::noteColor() const
+{
+    return m_NoteColor;
+}
+
+void Note::setNoteColor(const QColor &color)
+{
+    m_NoteColor = color;
+    update();
+}
+
 void Note::paint(QPainter *painter)
 {
      painter->setBackgroundMode(Qt::TransparentMode);
@@ -63,7 +75,7 @@ void Note::paint(QPainter *painter)
 
      painter->setFont(font);
      painter->save();
-     QTransform myTransform;
+     painter->setPen(m_NoteColor);
      if (isSecondOctave())
      {
          QImage img(QSize(fm.width("Q"), fm.height()), QImage::Format_ARGB32);
